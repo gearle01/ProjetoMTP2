@@ -1,0 +1,27 @@
+﻿CREATE DATABASE mtpproject
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'en_US.UTF-8'
+    LC_CTYPE = 'pt_BR.UTF-8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
+CREATE TABLE public.pessoa
+(
+    id integer NOT NULL DEFAULT nextval('pessoa_id_seq'::regclass),
+    nome character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    email character varying(80) COLLATE pg_catalog."default" NOT NULL,
+    senha character varying(80) COLLATE pg_catalog."default" NOT NULL,
+    cidade_estado character varying COLLATE pg_catalog."default",
+    CONSTRAINT pessoa_pkey PRIMARY KEY (id, email),
+    CONSTRAINT uq_email UNIQUE (email)
+
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.pessoa
+    OWNER to postgres;
