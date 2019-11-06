@@ -18,6 +18,16 @@ public class PostUser {
     
     private Integer pessoaId;
 
+    private int Likes;
+
+    public int getLikes() {
+        return Likes;
+    }
+
+    public void setLikes(int Likes) {
+        this.Likes = Likes;
+    }
+    
     public Integer getId() {
         return id;
     }

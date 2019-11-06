@@ -26,19 +26,22 @@
                       <Component id="nomedousuario" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="519" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+                      <Component id="Nome" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                      <Component id="Data" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
+                      <Component id="Likes" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
-                      <Component id="nomeuser" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                      <Component id="datapost" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                      <Component id="likepost" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lImagem" alignment="0" min="-2" pref="511" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="519" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="54" max="32767" attributes="0"/>
+              <EmptySpace pref="98" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -49,13 +52,15 @@
               <Component id="nomedousuario" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="nomeuser" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="datapost" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="likepost" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Nome" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Data" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Likes" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="120" max="-2" attributes="0"/>
-              <EmptySpace pref="110" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="lImagem" min="-2" pref="207" max="-2" attributes="0"/>
+              <EmptySpace pref="64" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -63,17 +68,17 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="nomedousuario">
     </Component>
-    <Component class="javax.swing.JLabel" name="nomeuser">
+    <Component class="javax.swing.JLabel" name="Nome">
       <Properties>
-        <Property name="text" type="java.lang.String" value="nome do"/>
+        <Property name="text" type="java.lang.String" value="Usuario"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="datapost">
+    <Component class="javax.swing.JLabel" name="Data">
       <Properties>
         <Property name="text" type="java.lang.String" value="data do "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="likepost">
+    <Component class="javax.swing.JLabel" name="Likes">
       <Properties>
         <Property name="text" type="java.lang.String" value="likes"/>
       </Properties>
@@ -85,9 +90,14 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextPane" name="jTextPane1">
+        <Component class="javax.swing.JTextPane" name="Post">
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="lImagem">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel1"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>

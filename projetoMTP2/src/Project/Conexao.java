@@ -142,8 +142,5 @@ public class Conexao {
         }
     }
     
-    public PostUser baixardoBanco(Integer id, String texto, Byte[] imagem, Integer pessoaId){
-        
-                preparedStatment
-    }
+  
 }
