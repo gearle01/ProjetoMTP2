@@ -4,16 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import static java.lang.Math.log;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
-import javax.swing.JPasswordField;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 public class Conexao {
 
@@ -144,5 +140,10 @@ public class Conexao {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public PostUser baixardoBanco(Integer id, String texto, Byte[] imagem, Integer pessoaId){
+        
+                preparedStatment
     }
 }

@@ -20,6 +20,7 @@ public class Principal extends javax.swing.JFrame {
 
     public Principal(Usuario user){
         initComponents();
+        jPanel1.add(new Post());
         setLocationRelativeTo(null);
         this.user = user;
     }
@@ -40,12 +41,12 @@ public class Principal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         CriarPost = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jScrollBar2 = new javax.swing.JScrollBar();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Principal");
+        setMaximumSize(new java.awt.Dimension(1280, 720));
         setPreferredSize(new java.awt.Dimension(1280, 720));
-        setResizable(false);
 
         Alaterar.setText("Alterar dados");
         Alaterar.addActionListener(new java.awt.event.ActionListener() {
@@ -64,10 +65,10 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jScrollBar2.setBlockIncrement(5);
-        jScrollBar2.setOrientation(javax.swing.JScrollBar.HORIZONTAL);
-        jScrollBar2.setVisibleAmount(5);
-        jScrollPane1.setViewportView(jScrollBar2);
+        jScrollPane1.setMinimumSize(null);
+
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.PAGE_AXIS));
+        jScrollPane1.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,26 +81,25 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Alaterar))
-                    .addComponent(CriarPost))
-                .addGap(43, 43, 43)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(211, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(CriarPost)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(CriarPost))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Alaterar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(131, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(105, 105, 105))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(CriarPost)
+                        .addContainerGap())))
         );
 
         pack();
@@ -111,7 +111,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_AlaterarActionPerformed
 
     private void CriarPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CriarPostActionPerformed
-        new Post(this.user).setVisible(true);
+        new CriarPost(this.user).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_CriarPostActionPerformed
 
@@ -120,7 +120,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton Alaterar;
     private javax.swing.JButton CriarPost;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollBar jScrollBar2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
