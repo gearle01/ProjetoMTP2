@@ -5,6 +5,8 @@
  */
 package Project;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author ifg
@@ -16,9 +18,11 @@ public class PostUser {
     
     private byte[] imagem;
     
-    private Integer pessoaId;
+    private String pessoaId;
 
     private int Likes;
+    
+    private Timestamp data;
 
     public int getLikes() {
         return Likes;
@@ -52,13 +56,23 @@ public class PostUser {
         this.imagem = imagem;
     }
 
-    public Integer getPessoaId() {
+    public String getPessoaId() {
         return pessoaId;
     }
 
-    public void setPessoaId(Integer pessoaId) {
+    public void setPessoaId(String pessoaId) {
         this.pessoaId = pessoaId;
     }
+
+    public Timestamp getData() {
+        return data;
+    }
+
+    public void setData(Timestamp data) {
+        this.data = data;
+    }
+    
+    
     
     
 }

@@ -9,20 +9,32 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Conexao {
 
     private String url = "jdbc:postgresql://localhost/mtpproject";
+    /**
+     * endereço do banco de dados
+     */
 
     private String usuario = "postgres";
+    /**
+     * usuario do bano de dados
+     */
 
     private String senha = "ifg";
 
     private Connection conn;
-    
-   
- 
+
+    /**
+     * variavel global do tipo connection. Onde guarda a conexao com o banco de
+     * dados
+     */
+
     public Conexao() {
         connectar();
     }
@@ -114,15 +126,19 @@ public class Conexao {
 
     public void salvarArquivoNoBd(String texto, File arquivo, Integer id) {
         try {
-               
-            FileInputStream fis = new FileInputStream(arquivo);
-            
+
             // cria a consulta
             PreparedStatement ps;
-            ps = this.conn.prepareStatement("INSERT INTO post (texto, imagem, pessoa_id) VALUES (?, ?, ?)");
-            ps.setString(1, arquivo.getName());
-            ps.setBinaryStream(2, fis, (int) arquivo.length());
-            ps.setInt(3, id);
+
+            if (arquivo == null) {
+                ps = this.conn.prepareStatement("INSERT INTO post (texto, pessoa_id, data) VALUES (?, ?, now())");
+            } else {
+                ps = this.conn.prepareStatement("INSERT INTO post (texto, pessoa_id, imagem) VALUES (?, ?, now()), ?");
+                FileInputStream fis = new FileInputStream(arquivo);
+                ps.setBinaryStream(4, fis, (int) arquivo.length());
+            }
+            ps.setString(1, texto);
+            ps.setInt(2, id);
 
             // salva no banco de dados
             ps.executeUpdate();
@@ -130,9 +146,7 @@ public class Conexao {
             // fecha a consulta e o inputStream para agilizar a liberação de
             // recursos do computador
             ps.close();
-            fis.close();
 
-            
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
@@ -141,6 +155,30 @@ public class Conexao {
             e.printStackTrace();
         }
     }
-    
-  
+
+    public ArrayList<PostUser> buscarPost() {
+        PreparedStatement bp;
+        ArrayList<PostUser> lista = new ArrayList<PostUser>();
+
+        try {
+            bp = this.conn.prepareStatement("select texto, imagem, post.id, pessoa.nome, data from post \n"
+                    + "	join pessoa on post.pessoa_id = pessoa.id order by post.data desc\n"
+                    + "	limit 3 ");
+            ResultSet result = bp.executeQuery();
+            while (result.next()) {
+                PostUser user = new PostUser();
+                user.setTexto(result.getString(1));
+                user.setImagem(result.getBytes(2));
+                user.setId(result.getInt(3));
+                user.setPessoaId(result.getString(4));
+                user.setData(result.getTimestamp(5));
+                lista.add(user);
+            }
+
+        } catch (SQLException ex) {
+
+        }
+        return lista;
+    }
+
 }

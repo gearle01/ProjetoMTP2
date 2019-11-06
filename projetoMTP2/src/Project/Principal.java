@@ -8,6 +8,7 @@ package Project;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,7 +21,14 @@ public class Principal extends javax.swing.JFrame {
 
     public Principal(Usuario user){
         initComponents();
-        jPanel1.add(new Post());
+        Conexao post = new Conexao();
+        ArrayList<PostUser> array = post.buscarPost();
+        for (PostUser array1 : array) {
+            Post ab = new Post(user, array1);
+            jPanel1.add(ab);
+            
+        }
+        
         setLocationRelativeTo(null);
         this.user = user;
     }
@@ -45,8 +53,6 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Principal");
-        setMaximumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
 
         Alaterar.setText("Alterar dados");
         Alaterar.addActionListener(new java.awt.event.ActionListener() {

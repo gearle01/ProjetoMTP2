@@ -107,25 +107,22 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-        new TelaInicial().setVisible(true);
+        new TelaInicial().setVisible(true);//botao de cancelar
         this.dispose();
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrarActionPerformed
-        Conexao conect = new Conexao();
+        Conexao conect = new Conexao();//botao de entrar
         conect.connectar();
-        
-        Usuario result  = conect.login(email.getText(), new String(senha.getPassword()));
-        
-        if(result != null){
-          // JOptionPane.showMessageDialog(null,"O usuario logado é: " + result.getNome());
-           
-           new Principal(result).setVisible(true);
-             this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(null,"Usuário ou Senha incorretos");
-        }    
-        
+
+        Usuario result = conect.login(email.getText(), new String(senha.getPassword())); /**resultado da busca de email e senha do usuario*/
+        if (result != null) { /** JOptionPane.showMessageDialog(null,"O usuario logado é: " + result.getNome());*/
+            new Principal(result).setVisible(true); /** leva ate a proxima tela */
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário ou Senha incorretos"); /** mensagem  de erro */
+        }
+
     }//GEN-LAST:event_entrarActionPerformed
 
     private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed

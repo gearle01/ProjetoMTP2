@@ -10,6 +10,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,12 +26,13 @@ public class Post extends javax.swing.JPanel {
     }
 
     public Post(Usuario user, PostUser pu){
+        initComponents();
         this.user = user;
         this.pu = pu;
         
-        this.Nome.setText(this.user.getNome());
-        this.Post.setText(this.pu.getTexto());
-        this.Likes.setText(Integer.toString(this.pu.getLikes()));
+        this.nome.setText(this.user.getNome());
+        this.post.setText(this.pu.getTexto());
+        this.likes.setText(Integer.toString(this.pu.getLikes()));
         
         try {
             InputStream entradaBytes = new ByteArrayInputStream(this.pu.getImagem());
@@ -42,6 +44,8 @@ public class Post extends javax.swing.JPanel {
             this.lImagem.setIcon(imagem1);
             
        }catch (Exception e) {
+            e.printStackTrace();
+           //JOptionPane.showMessageDialog(null, "Algo deu errado!");
        
        
        
@@ -58,24 +62,24 @@ public class Post extends javax.swing.JPanel {
     private void initComponents() {
 
         nomedousuario = new javax.swing.JLabel();
-        Nome = new javax.swing.JLabel();
-        Data = new javax.swing.JLabel();
-        Likes = new javax.swing.JLabel();
+        nome = new javax.swing.JLabel();
+        data = new javax.swing.JLabel();
+        likes = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Post = new javax.swing.JTextPane();
+        post = new javax.swing.JTextPane();
         lImagem = new javax.swing.JLabel();
 
         setToolTipText("");
 
-        Nome.setText("Usuario");
+        nome.setText("Usuario");
 
-        Data.setText("data do ");
+        data.setText("data do ");
 
-        Likes.setText("likes");
+        likes.setText("likes");
 
-        jScrollPane1.setViewportView(Post);
-
-        lImagem.setText("jLabel1");
+        post.setEditable(false);
+        post.setBackground(new java.awt.Color(204, 204, 204));
+        jScrollPane1.setViewportView(post);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -88,11 +92,11 @@ public class Post extends javax.swing.JPanel {
                         .addComponent(nomedousuario))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(91, 91, 91)
-                        .addComponent(Nome)
+                        .addComponent(nome)
                         .addGap(92, 92, 92)
-                        .addComponent(Data)
+                        .addComponent(data)
                         .addGap(89, 89, 89)
-                        .addComponent(Likes))
+                        .addComponent(likes))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(73, 73, 73)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,9 +111,9 @@ public class Post extends javax.swing.JPanel {
                 .addComponent(nomedousuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Nome)
-                    .addComponent(Data)
-                    .addComponent(Likes))
+                    .addComponent(nome)
+                    .addComponent(data)
+                    .addComponent(likes))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -120,12 +124,12 @@ public class Post extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Data;
-    private javax.swing.JLabel Likes;
-    private javax.swing.JLabel Nome;
-    private javax.swing.JTextPane Post;
+    private javax.swing.JLabel data;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lImagem;
+    private javax.swing.JLabel likes;
+    private javax.swing.JLabel nome;
     private javax.swing.JLabel nomedousuario;
+    private javax.swing.JTextPane post;
     // End of variables declaration//GEN-END:variables
 }
