@@ -34,7 +34,6 @@ public class Conexao {
      * variavel global do tipo connection. Onde guarda a conexao com o banco de
      * dados
      */
-
     public Conexao() {
         connectar();
     }
@@ -129,16 +128,13 @@ public class Conexao {
 
             // cria a consulta
             PreparedStatement ps;
-
-            if (arquivo == null) {
-                ps = this.conn.prepareStatement("INSERT INTO post (texto, pessoa_id, data) VALUES (?, ?, now())");
-            } else {
-                ps = this.conn.prepareStatement("INSERT INTO post (texto, pessoa_id, imagem) VALUES (?, ?, now()), ?");
-                FileInputStream fis = new FileInputStream(arquivo);
-                ps.setBinaryStream(4, fis, (int) arquivo.length());
-            }
+            
+            ps = this.conn.prepareStatement("INSERT INTO post (texto, imagem, pessoa_id, data) VALUES (?, ?, ?, now() )");
+            FileInputStream fis = new FileInputStream(arquivo);
+            
             ps.setString(1, texto);
-            ps.setInt(2, id);
+            ps.setBinaryStream(2, fis, (int) arquivo.length());
+            ps.setInt(3, id);
 
             // salva no banco de dados
             ps.executeUpdate();
@@ -152,6 +148,28 @@ public class Conexao {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void salvarTexto(String texto, Integer id) {
+        try {
+
+            // cria a consulta
+            PreparedStatement ps;
+            ps = this.conn.prepareStatement("INSERT INTO post (texto, pessoa_id, data) VALUES (?, ?, now())");
+
+            ps.setString(1, texto);
+            ps.setInt(2, id);
+
+            // salva no banco de dados
+            ps.executeUpdate();
+
+            // fecha a consulta e o inputStream para agilizar a liberação de
+            // recursos do computador
+            ps.close();
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

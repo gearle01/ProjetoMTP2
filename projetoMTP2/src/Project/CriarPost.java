@@ -28,6 +28,7 @@ public class CriarPost extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         texto = new javax.swing.JTextArea();
         BotaoUP = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Post");
@@ -50,7 +51,7 @@ public class CriarPost extends javax.swing.JFrame {
         texto.setRows(5);
         jScrollPane1.setViewportView(texto);
 
-        BotaoUP.setText("Selecioar");
+        BotaoUP.setText("Selecionar");
         BotaoUP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoUPActionPerformed(evt);
@@ -64,6 +65,9 @@ public class CriarPost extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
                         .addContainerGap())
@@ -85,9 +89,10 @@ public class CriarPost extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Cancelar)
                         .addComponent(Enviar))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(BotaoUP)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                    .addComponent(BotaoUP))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -105,6 +110,7 @@ public class CriarPost extends javax.swing.JFrame {
         if (retorno == JFileChooser.APPROVE_OPTION) {
             // if (novoArquivo.getName().toLowerCase().endsWith(".jpg") || novoArquivo.getName().toLowerCase().endsWith(".png")) {
             arquivo = novoArquivo;
+            jLabel1.setText(arquivo.getName());
             //}
 
         }
@@ -113,7 +119,7 @@ public class CriarPost extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoUPActionPerformed
 
     private void EnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnviarActionPerformed
-        if (texto.getText().isEmpty()) {
+        if (texto.getText().isEmpty() && arquivo == null) {
             JOptionPane.showMessageDialog(null, "O Post Não Pode Ser Vazio!");
         } else {
             if (texto.getText().length() > 140) {
@@ -121,16 +127,25 @@ public class CriarPost extends javax.swing.JFrame {
             } else {
                 Conexao leia = new Conexao();
                 try {
-                    leia.salvarArquivoNoBd(texto.getText(), arquivo, this.user.getId());
-                    JOptionPane.showMessageDialog(null, "Sucesso!");
+                    if (arquivo != null) {
 
-                    this.dispose();
-                    new Principal(this.user).setVisible(true);
-                    
+                        leia.salvarArquivoNoBd(texto.getText(), arquivo, this.user.getId());
+                        JOptionPane.showMessageDialog(null, "Sucesso!");
+
+                        this.dispose();
+                        new Principal(this.user).setVisible(true);
+
+                    } else {
+                        leia.salvarTexto(texto.getText(), this.user.getId());
+                        JOptionPane.showMessageDialog(null, "Sucesso!");
+
+                        this.dispose();
+                        new Principal(this.user).setVisible(true);
+                    }
 
                 } catch (Exception e) {
-                    //JOptionPane.showMessageDialog(null, "Algo Deu Errado, Tente Novamente!");
-                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Algo Deu Errado, Tente Novamente!");
+                    //e.printStackTrace();
                 }
             }
         }
@@ -145,6 +160,7 @@ public class CriarPost extends javax.swing.JFrame {
     private javax.swing.JButton BotaoUP;
     private javax.swing.JButton Cancelar;
     private javax.swing.JButton Enviar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea texto;
     // End of variables declaration//GEN-END:variables
