@@ -128,10 +128,10 @@ public class Conexao {
 
             // cria a consulta
             PreparedStatement ps;
-            
+
             ps = this.conn.prepareStatement("INSERT INTO post (texto, imagem, pessoa_id, data) VALUES (?, ?, ?, now() )");
             FileInputStream fis = new FileInputStream(arquivo);
-            
+
             ps.setString(1, texto);
             ps.setBinaryStream(2, fis, (int) arquivo.length());
             ps.setInt(3, id);
@@ -174,14 +174,15 @@ public class Conexao {
         }
     }
 
-    public ArrayList<PostUser> buscarPost() {
+    public ArrayList<PostUser> buscarPost(Integer id) {
         PreparedStatement bp;
         ArrayList<PostUser> lista = new ArrayList<PostUser>();
 
         try {
             bp = this.conn.prepareStatement("select texto, imagem, post.id, pessoa.nome, data from post \n"
-                    + "	join pessoa on post.pessoa_id = pessoa.id order by post.data desc\n"
+                    + "	join pessoa on post.pessoa_id = pessoa.id where pessoa.id = ? order by post.data asc\n"
                     + "	limit 3 ");
+            bp.setInt(1, id);
             ResultSet result = bp.executeQuery();
             while (result.next()) {
                 PostUser user = new PostUser();
@@ -197,6 +198,17 @@ public class Conexao {
 
         }
         return lista;
+    }
+
+    public void like(Integer post_id, Integer pessoa_id) throws SQLException {
+        PreparedStatement ps = this.conn.prepareStatement("INSERT INTO like_post (pessoa_id, post_id, data) values(?, ?, now())");
+
+        ps.setInt(1, pessoa_id);
+        ps.setInt(2, post_id);
+
+        ps.executeUpdate();
+        ps.close();
+
     }
 
 }

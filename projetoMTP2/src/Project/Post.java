@@ -8,6 +8,9 @@ package Project;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -20,6 +23,7 @@ public class Post extends javax.swing.JPanel {
 
     private Usuario user;
     private PostUser pu;
+    private Conexao conn;
 
     public Post() {
         initComponents();
@@ -29,10 +33,14 @@ public class Post extends javax.swing.JPanel {
         initComponents();
         this.user = user;
         this.pu = pu;
+        SimpleDateFormat sp = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        data.setText(sp.format(this.pu.getData()));
+        //jLabel1.setText(arquivo.getName());
 
         this.nome.setText(this.user.getNome());
         this.post.setText(this.pu.getTexto());
         this.likes.setText(Integer.toString(this.pu.getLikes()));
+        likes.setText(Integer.toString(this.pu.getLikes()));
 
         if (pu.getImagem() != null) {
             try {
@@ -45,8 +53,8 @@ public class Post extends javax.swing.JPanel {
                 this.lImagem.setIcon(imagem1);
 
             } catch (Exception e) {
-                e.printStackTrace();
-                //JOptionPane.showMessageDialog(null, "Algo deu errado!");
+                // e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Algo deu errado!");
 
             }
 
@@ -69,8 +77,6 @@ public class Post extends javax.swing.JPanel {
 
         nome.setText("Usuario");
 
-        data.setText("data do ");
-
         likes.setText("likes");
 
         post.setEditable(false);
@@ -78,6 +84,16 @@ public class Post extends javax.swing.JPanel {
         jScrollPane1.setViewportView(post);
 
         botonLike.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/like.png"))); // NOI18N
+        botonLike.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonLikeMouseClicked(evt);
+            }
+        });
+        botonLike.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonLikeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -93,8 +109,7 @@ public class Post extends javax.swing.JPanel {
                         .addGap(140, 140, 140)
                         .addComponent(data)
                         .addGap(201, 201, 201)
-                        .addComponent(likes)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(likes))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(botonLike)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,6 +142,22 @@ public class Post extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonLikeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLikeActionPerformed
+            
+
+    }//GEN-LAST:event_botonLikeActionPerformed
+
+    private void botonLikeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonLikeMouseClicked
+        Conexao conn = new Conexao();
+        conn.connectar();
+        try {
+            conn.like(user.getId(), pu.getId());
+            this.pu.setLikes(this.pu.getLikes() +1);
+            
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_botonLikeMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -30,7 +30,6 @@
                       <Component id="data" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="201" max="-2" attributes="0"/>
                       <Component id="likes" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="274" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                       <Component id="botonLike" min="-2" max="-2" attributes="0"/>
@@ -86,9 +85,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="data">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="data do "/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="likes">
       <Properties>
@@ -120,6 +116,10 @@
           <Image iconType="3" name="/Project/like.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botonLikeMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonLikeActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

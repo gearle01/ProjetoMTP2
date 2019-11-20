@@ -22,7 +22,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal(Usuario user){
         initComponents();
         Conexao post = new Conexao();
-        ArrayList<PostUser> array = post.buscarPost();
+        ArrayList<PostUser> array = post.buscarPost(user.getId());
         for (PostUser array1 : array) {
             Post ab = new Post(user, array1);
             jPanel1.add(ab);

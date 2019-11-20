@@ -183,19 +183,19 @@ public class TelaCadastro extends javax.swing.JFrame {
                     Conexao conn = new Conexao();
                     conn.connectar();
                     if (this.user == null) {
-                        conn.inserir(nome.getText(), email.getText(), new String(senha.getPassword()),cidade.getText() );
+                        conn.inserir(nome.getText(), email.getText(), new String(senha.getPassword()), cidade.getText());
                         JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
-                        new Principal().setVisible(true);
+                        new TelaLogin().setVisible(true);
                         this.dispose();
                     } else {
-                       Usuario result = conn.atualizar(nome.getText(), new String(senha.getPassword()), cidade.getText(), this.user);
+                        Usuario result = conn.atualizar(nome.getText(), new String(senha.getPassword()), cidade.getText(), this.user);
                         JOptionPane.showMessageDialog(null, "Alteração efetuado com sucesso!");
                         new Principal(result).setVisible(true);
                         this.dispose();
                     }
 
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Algo deu errado. Tente novamente!");
+                    // JOptionPane.showMessageDialog(null, "Algo deu errado. Tente novamente!");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "A senhas tem de ser iguais!!");
@@ -203,13 +203,14 @@ public class TelaCadastro extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Os campos são nulos!");
         }
+        
 
     }//GEN-LAST:event_okActionPerformed
-
+       
     private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeActionPerformed
-   
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelar;
@@ -227,4 +228,3 @@ public class TelaCadastro extends javax.swing.JFrame {
     private javax.swing.JPasswordField senha;
     // End of variables declaration//GEN-END:variables
 }
-
