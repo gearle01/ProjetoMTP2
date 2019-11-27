@@ -172,8 +172,19 @@ public class TelaCadastro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-        new TelaInicial().setVisible(true);
-        this.dispose();
+        Conexao conn = new Conexao();
+        conn.connectar();
+        
+        
+        if (this.user == null) {
+            new TelaInicial().setVisible(true);
+            this.dispose();
+        } else {
+            Usuario result = conn.atualizar(nome.getText(), new String(senha.getPassword()), cidade.getText(), this.user);
+            new Principal(result).setVisible(true);
+            this.dispose();
+        }
+
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
@@ -195,7 +206,7 @@ public class TelaCadastro extends javax.swing.JFrame {
                     }
 
                 } catch (Exception e) {
-                    // JOptionPane.showMessageDialog(null, "Algo deu errado. Tente novamente!");
+                    JOptionPane.showMessageDialog(null, "Email já existe!");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "A senhas tem de ser iguais!!");
@@ -203,10 +214,10 @@ public class TelaCadastro extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Os campos são nulos!");
         }
-        
+
 
     }//GEN-LAST:event_okActionPerformed
-       
+
     private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeActionPerformed

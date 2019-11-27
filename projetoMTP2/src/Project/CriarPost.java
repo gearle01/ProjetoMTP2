@@ -119,9 +119,13 @@ public class CriarPost extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoUPActionPerformed
 
     private void EnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnviarActionPerformed
+        
         if (texto.getText().isEmpty() && arquivo == null) {
             JOptionPane.showMessageDialog(null, "O Post Não Pode Ser Vazio!");
-        } else {
+        }else if(texto.getText().isEmpty() && arquivo != null){
+            JOptionPane.showMessageDialog(null, "O Post Não Pode Ser Vazio!");
+        } 
+        else {
             if (texto.getText().length() > 140) {
                 JOptionPane.showMessageDialog(null, "O Post Tem Mais De 140 Caracters!");
             } else {

@@ -39,9 +39,7 @@ public class Post extends javax.swing.JPanel {
 
         this.nome.setText(this.user.getNome());
         this.post.setText(this.pu.getTexto());
-        this.likes.setText(Integer.toString(this.pu.getLikes()));
-        likes.setText(Integer.toString(this.pu.getLikes()));
-
+        this.likes.setText(Integer.toString(pu.getLikes()));
         if (pu.getImagem() != null) {
             try {
                 InputStream entradaBytes = new ByteArrayInputStream(this.pu.getImagem());
@@ -72,12 +70,10 @@ public class Post extends javax.swing.JPanel {
         post = new javax.swing.JTextPane();
         lImagem = new javax.swing.JLabel();
         botonLike = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setToolTipText("");
-
-        nome.setText("Usuario");
-
-        likes.setText("likes");
 
         post.setEditable(false);
         post.setBackground(new java.awt.Color(204, 204, 204));
@@ -95,6 +91,10 @@ public class Post extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setText("Usuário:");
+
+        jLabel2.setText("Data:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,17 +103,22 @@ public class Post extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(nomedousuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lImagem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 732, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
                         .addComponent(nome)
-                        .addGap(140, 140, 140)
-                        .addComponent(data)
-                        .addGap(201, 201, 201)
-                        .addComponent(likes))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(botonLike)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lImagem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 732, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(98, 98, 98)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(likes, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(botonLike)))
                 .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
@@ -122,17 +127,17 @@ public class Post extends javax.swing.JPanel {
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 12, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(likes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonLike, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(data, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(nome)
-                                    .addComponent(data)
-                                    .addComponent(likes))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(botonLike)
-                                .addGap(18, 18, 18)))
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))))
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -144,7 +149,7 @@ public class Post extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonLikeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLikeActionPerformed
-            
+
 
     }//GEN-LAST:event_botonLikeActionPerformed
 
@@ -152,10 +157,13 @@ public class Post extends javax.swing.JPanel {
         Conexao conn = new Conexao();
         conn.connectar();
         try {
-            conn.like(user.getId(), pu.getId());
-            this.pu.setLikes(this.pu.getLikes() +1);
-            
+            conn.like(pu.getId(), user.getId());
+            int totalLike = conn.contarlike(pu.getId());
+
+            likes.setText(Integer.toString(totalLike));
+
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Já existe like neste post!");
         }
     }//GEN-LAST:event_botonLikeMouseClicked
 
@@ -163,6 +171,8 @@ public class Post extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonLike;
     private javax.swing.JLabel data;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lImagem;
     private javax.swing.JLabel likes;

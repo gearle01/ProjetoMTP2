@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 public class Conexao {
 
-    private String url = "jdbc:postgresql://localhost/mtpproject";
+    private String url = "jdbc:postgresql://localhost/mtproject";
     /**
      * endereço do banco de dados
      */
@@ -179,8 +179,8 @@ public class Conexao {
         ArrayList<PostUser> lista = new ArrayList<PostUser>();
 
         try {
-            bp = this.conn.prepareStatement("select texto, imagem, post.id, pessoa.nome, data from post \n"
-                    + "	join pessoa on post.pessoa_id = pessoa.id where pessoa.id = ? order by post.data asc\n"
+            bp = this.conn.prepareStatement("select texto, imagem, post.id, pessoa.nome, data,(select count(*) from like_post where like_post.post_id = post.id ) from post \n"
+                    + "	join pessoa on post.pessoa_id = pessoa.id where pessoa.id = ? order by post.data desc\n"
                     + "	limit 3 ");
             bp.setInt(1, id);
             ResultSet result = bp.executeQuery();
@@ -191,6 +191,7 @@ public class Conexao {
                 user.setId(result.getInt(3));
                 user.setPessoaId(result.getString(4));
                 user.setData(result.getTimestamp(5));
+                user.setLikes(result.getInt(6));
                 lista.add(user);
             }
 
@@ -201,14 +202,30 @@ public class Conexao {
     }
 
     public void like(Integer post_id, Integer pessoa_id) throws SQLException {
-        PreparedStatement ps = this.conn.prepareStatement("INSERT INTO like_post (pessoa_id, post_id, data) values(?, ?, now())");
+        PreparedStatement ps = this.conn.prepareStatement("INSERT INTO like_post (post_id, pessoa_id, data) values(?, ?, now())");
 
-        ps.setInt(1, pessoa_id);
-        ps.setInt(2, post_id);
+        ps.setInt(1, post_id);
+        ps.setInt(2, pessoa_id);
 
         ps.executeUpdate();
         ps.close();
 
     }
 
+    public int contarlike(Integer post_id) throws SQLException {
+        int total = 0;
+        try {
+            PreparedStatement cl = this.conn.prepareStatement("select count(*) from  like_post where post_id = ?");
+            cl.setInt(1, post_id);
+            ResultSet rs = cl.executeQuery();
+            if(rs.next()){
+                total = rs.getInt(1);
+            }
+            
+        } catch (Exception e) {
+            
+        }
+        return total;
+
+    }
 }
